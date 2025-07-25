@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Asint - Управление Активами</title>
+    <link rel="icon" href="./images/icons/01.png" />
+
+    <!-- Link 'Tailwind CSS' library's script -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Link 'Chart.js' library's script -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Link 'Lucide' library's script -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Link main styles -->
+    <link rel="stylesheet" href="./style.css" />
+
+    <!-- Link 'Inter' Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div class="flex h-screen bg-gray-100 dark:bg-gray-900">
+      <!-- Sidebar -->
+      <aside
+        class="aside w-64 flex-shrink-0 bg-white dark:bg-gray-800 shadow-lg hidden md:flex flex-col"
+        id="aside"
+      >
+        <a
+          href="/"
+          class="h-16 flex items-center justify-start sm:justify-center border-b dark:border-gray-700 cursor-pointer px-3 sm:px-4"
+        >
+          <i data-lucide="layers-3" class="text-blue-600"></i>
+          <h1 class="text-xl font-bold ml-2">Asint</h1>
+        </a>
+        <nav class="flex-1 px-4 py-6 space-y-2">
+          <a
+            href="#"
+            id="nav-dashboard"
+            class="sidebar-link flex items-center px-4 py-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          >
+            <i data-lucide="layout-dashboard"></i>
+            <span class="ml-3">Мои Активы</span>
+          </a>
+          <a
+            href="#"
+            id="nav-evaluate"
+            class="sidebar-link flex items-center px-4 py-2 rounded-lg text-gray-500 dark:text-gray-400 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+          >
+            <i data-lucide="landmark"></i>
+            <span class="ml-3">Оценить</span>
+          </a>
+          <a
+            href="#"
+            id="nav-announcements"
+            class="sidebar-link flex items-center px-4 py-2 rounded-lg text-gray-500 dark:text-gray-400 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+          >
+            <i data-lucide="newspaper"></i>
+            <span class="ml-3">Объявления</span>
+          </a>
+          <a
+            href="#"
+            id="nav-market"
+            class="sidebar-link flex items-center px-4 py-2 rounded-lg text-gray-500 dark:text-gray-400 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+            style="cursor: pointer !important;"
+          >
+            <i data-lucide="candlestick-chart"></i>
+            <span class="ml-3">Рынок</span>
+          </a>
+          <a
+            href="#"
+            class="sidebar-link flex items-center px-4 py-2 rounded-lg text-gray-500 dark:text-gray-400 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+          >
+            <i data-lucide="brain-circuit"></i>
+            <span class="ml-3">Прогнозы</span>
+          </a>
+          <a
+            href="#"
+            class="sidebar-link flex items-center px-4 py-2 rounded-lg text-gray-500 dark:text-gray-400 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+          >
+            <i data-lucide="calendar"></i>
+            <span class="ml-3">Календарь</span>
+          </a>
+          <a
+            href="#"
+            id="nav-ai-assistant"
+            class="sidebar-link flex items-center px-4 py-2 rounded-lg text-gray-500 dark:text-gray-400 cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+          >
+            <i data-lucide="bot"></i>
+            <span class="ml-3">AI Ассистент</span>
+          </a>
+        </nav>
+        <div id="profile" class="profile px-4 py-4 border-t dark:border-gray-700">
+          <div class="flex items-center justify-between">
+            <div class="flex">
+              <img
+                class="h-10 w-10 rounded-full object-cover"
+                src="https://placehold.co/100x100/E2E8F0/4A5568?text=A"
+                alt="Avatar"
+              />
+              <div class="ml-3">
+                <p id="user-name" class="text-sm font-semibold">Eldor Ruziev</p>
+                <p id="user-plan" class="text-xs text-gray-500 dark:text-gray-400">Pro Plan</p>
+              </div>
+            </div>
+            <a
+              href="./login.html"
+              class="logout flex items-center justify-center cursor-pointer p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+              id="logout-btn"
+            >
+              <i data-lucide="log-out" class="w-5 h-5 text-gray-600 dark:text-gray-400"></i>
+            </a>
+          </div>
+        </div>
+        <div id="mobile-close" class="flex">
+          <i
+            data-lucide="circle-x"
+            class="block sm:hidden cursor-pointer absolute top-[15px] right-[20px] w-[30px] h-[30px] text-[rgb(107,114,128)] z-10"
+          ></i>
+        </div>
+      </aside>
+
+      <!-- Main content -->
+      <main class="flex-1 flex flex-col overflow-hidden">
+        <header
+          class="h-16 bg-white dark:bg-gray-800 shadow-sm flex items-center justify-between px-6"
+        >
+          <div class="flex items-center gap-3">
+            <button
+              id="back-button"
+              class="hidden items-center text-gray-600 dark:text-gray-300 hover:text-blue-600"
+            >
+              <i data-lucide="arrow-left" class="mr-2"></i>
+            </button>
+            <h2 id="page-title" class="text-2xl font-bold"></h2>
+          </div>
+          <div class="flex items-center space-x-4">
+            <button
+              id="add-asset-btn-header"
+              class="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center hover:bg-blue-700 transition"
+            >
+              <i data-lucide="plus" class="mr-2 h-5 w-5"></i>
+              Добавить актив
+            </button>
+            <i
+              onclick="toggleMenu()"
+              data-lucide="menu"
+              class="block cursor-pointer sm:hidden mr-2 h-8 w-8"
+            ></i>
+          </div>
+        </header>
+
+        <!-- Views Container -->
+        <div id="views-container" class="flex-1 overflow-y-auto p-6">
+          <!-- Dashboard View -->
+          <div id="dashboard-view" class="animate-fade-in">
+            <!-- Summary Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+              <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+                <div class="flex items-center">
+                  <div class="p-3 rounded-full bg-blue-100 dark:bg-blue-900/50">
+                    <i data-lucide="landmark" class="text-blue-600 dark:text-blue-400"></i>
+                  </div>
+                  <div class="ml-4">
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Общая стоимость</p>
+                    <p id="total-value" class="text-2xl font-bold"></p>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+                <div class="flex items-center">
+                  <div class="p-3 rounded-full bg-green-100 dark:bg-green-900/50">
+                    <i data-lucide="trending-up" class="text-green-600 dark:text-green-400"></i>
+                  </div>
+                  <div class="ml-4">
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Изменение (30 д.)</p>
+                    <p id="total-change" class="text-2xl font-bold"></p>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+                <div class="flex items-center">
+                  <div class="p-3 rounded-full bg-yellow-100 dark:bg-yellow-900/50">
+                    <i data-lucide="wallet" class="text-yellow-600 dark:text-yellow-400"></i>
+                  </div>
+                  <div class="ml-4">
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Кол-во активов</p>
+                    <p id="asset-count" class="text-2xl font-bold"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Assets Grid -->
+            <div id="assets-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <!-- Asset cards will be injected here -->
+            </div>
+          </div>
+
+          <!-- Asset Detail View -->
+          <div id="asset-detail-view" class="hidden animate-fade-in">
+            <!-- This content will be generated by JS -->
+          </div>
+
+          <!-- Add Asset Wizard View -->
+          <div id="add-asset-view" class="hidden animate-fade-in max-w-4xl mx-auto">
+            <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg">
+              <div id="wizard-step-1">
+                <h3 class="text-2xl font-bold text-center mb-8">Какой актив вы хотите добавить?</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <button
+                    data-asset-type="apartment"
+                    class="wizard-asset-type-btn flex flex-col items-center justify-center p-8 border-2 dark:border-gray-700 rounded-xl hover:border-blue-500 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition"
+                  >
+                    <i data-lucide="building-2" class="w-16 h-16 mb-4 text-blue-600"></i>
+                    <span class="text-xl font-semibold">Квартира</span>
+                  </button>
+                  <button
+                    data-asset-type="car"
+                    class="wizard-asset-type-btn flex flex-col items-center justify-center p-8 border-2 dark:border-gray-700 rounded-xl hover:border-green-500 dark:hover:border-green-500 hover:bg-green-50 dark:hover:bg-green-900/20 transition"
+                  >
+                    <i data-lucide="car" class="w-16 h-16 mb-4 text-green-600"></i>
+                    <span class="text-xl font-semibold">Автомобиль</span>
+                  </button>
+                </div>
+              </div>
+              <div id="wizard-step-2" class="hidden">
+                <!-- Form for asset details will be injected here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Evaluate Asset View -->
+          <div id="evaluate-view" class="hidden animate-fade-in max-w-4xl mx-auto">
+            <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg">
+              <div id="evaluate-step-1">
+                <h3 class="text-2xl font-bold text-center mb-8">Какой актив вы хотите оценить?</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <button
+                    data-evaluate-type="apartment"
+                    class="evaluate-asset-type-btn flex flex-col items-center justify-center p-8 border-2 dark:border-gray-700 rounded-xl hover:border-blue-500 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition"
+                  >
+                    <i data-lucide="building-2" class="w-16 h-16 mb-4 text-blue-600"></i>
+                    <span class="text-xl font-semibold">Квартира</span>
+                  </button>
+                  <button
+                    data-evaluate-type="car"
+                    class="evaluate-asset-type-btn flex flex-col items-center justify-center p-8 border-2 dark:border-gray-700 rounded-xl hover:border-green-500 dark:hover:border-green-500 hover:bg-green-50 dark:hover:bg-green-900/20 transition"
+                  >
+                    <i data-lucide="car" class="w-16 h-16 mb-4 text-green-600"></i>
+                    <span class="text-xl font-semibold">Автомобиль</span>
+                  </button>
+                </div>
+              </div>
+              <div id="evaluate-step-2" class="hidden">
+                <!-- Evaluation form will be injected here -->
+              </div>
+              <div id="evaluate-result" class="hidden">
+                <!-- Evaluation result will be displayed here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Market View -->
+          <div id="market-view" class="hidden animate-fade-in">
+            <!-- Market Selection -->
+            <div id="market-selection" class="max-w-4xl mx-auto">
+              <div class="text-center mb-8">
+                <h3 class="text-3xl font-bold mb-4">Аналитика рынка недвижимости</h3>
+                <p class="text-gray-600 dark:text-gray-400">Выберите тип рынка для просмотра аналитических данных</p>
+              </div>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <button
+                  data-market-type="apartments"
+                  class="market-type-btn bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 border-2 border-transparent hover:border-blue-500 dark:hover:border-blue-500 hover:shadow-xl transition-all duration-300 group"
+                >
+                  <div class="text-center">
+                    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <i data-lucide="building-2" class="w-10 h-10 text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold mb-3 text-gray-900 dark:text-gray-100">Рынок квартир</h4>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">Аналитика и статистика по рынку жилой недвижимости</p>
+                    <div class="flex items-center justify-center text-blue-600 dark:text-blue-400 font-semibold">
+                      <span>Перейти к анализу</span>
+                      <i data-lucide="arrow-right" class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                  </div>
+                </button>
+                
+                <button
+                  data-market-type="cars"
+                  class="market-type-btn bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 border-2 border-transparent hover:border-green-500 dark:hover:border-green-500 hover:shadow-xl transition-all duration-300 group"
+                >
+                  <div class="text-center">
+                    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-green-100 dark:bg-green-900/50 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <i data-lucide="car" class="w-10 h-10 text-green-600 dark:text-green-400"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold mb-3 text-gray-900 dark:text-gray-100">Рынок автомобилей</h4>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">Аналитика и статистика по автомобильному рынку</p>
+                    <div class="flex items-center justify-center text-green-600 dark:text-green-400 font-semibold">
+                      <span>Перейти к анализу</span>
+                      <i data-lucide="arrow-right" class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <!-- PowerBI Dashboard View -->
+            <div id="market-dashboard" class="hidden">
+              <div class="mb-6">
+                <button 
+                  id="back-to-market-selection"
+                  class="flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-600 mb-4"
+                >
+                  <i data-lucide="arrow-left" class="mr-2"></i>
+                  Назад к выбору рынка
+                </button>
+                <h3 id="market-dashboard-title" class="text-2xl font-bold"></h3>
+              </div>
+              
+              <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                <iframe 
+                  id="powerbi-iframe"
+                  class="w-full h-[800px] border-0"
+                  src=""
+                  title="Market Analytics Dashboard"
+                  allowfullscreen="true"
+                >
+                </iframe>
+              </div>
+            </div>
+          </div>
+
+          <!-- Announcements/Marketplace View -->
+          <div id="announcements-view" class="hidden animate-fade-in">
+            <div class="mb-6">
+              <h3 class="text-3xl font-bold mb-2">Объявления</h3>
+              <p class="text-gray-600 dark:text-gray-400">Активы, выставленные на продажу другими пользователями</p>
+            </div>
+
+            <!-- Filter Controls -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-6">
+              <div class="flex flex-wrap items-center gap-4">
+                <div>
+                  <label class="block text-sm font-medium mb-1">Тип актива</label>
+                  <select id="announcement-filter-type" class="px-3 py-2 border dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700">
+                    <option value="">Все типы</option>
+                    <option value="apartment">Квартиры</option>
+                    <option value="car">Автомобили</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Цена от</label>
+                  <input type="number" id="announcement-filter-price-min" placeholder="Мин. цена" class="px-3 py-2 border dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-1">Цена до</label>
+                  <input type="number" id="announcement-filter-price-max" placeholder="Макс. цена" class="px-3 py-2 border dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700">
+                </div>
+                <div class="flex items-end">
+                  <button id="apply-announcement-filters" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                    <i data-lucide="filter" class="mr-2 h-4 w-4 inline"></i>
+                    Применить
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Announcements Grid -->
+            <div id="announcements-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <!-- Announcement cards will be injected here -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="announcements-empty" class="hidden text-center py-12">
+              <i data-lucide="inbox" class="w-16 h-16 mx-auto mb-4 text-gray-400"></i>
+              <h3 class="text-xl font-semibold mb-2 text-gray-600 dark:text-gray-400">Нет объявлений</h3>
+              <p class="text-gray-500 dark:text-gray-500">В данный момент нет активов, выставленных на продажу</p>
+            </div>
+          </div>
+
+          <!-- AI Assistant View -->
+          <div id="ai-assistant-view" class="hidden animate-fade-in max-w-3xl mx-auto">
+            <div class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-800 dark:to-blue-900/40 p-8 rounded-2xl shadow-xl flex flex-col items-center">
+              <div class="flex items-center mb-6">
+                <i data-lucide="bot" class="w-12 h-12 text-blue-600 dark:text-blue-300 mr-4"></i>
+                <h3 class="text-3xl font-extrabold text-blue-700 dark:text-blue-200">AI Ассистент</h3>
+              </div>
+              <p class="text-lg text-center text-gray-700 dark:text-gray-300 mb-8 max-w-2xl">
+                Добро пожаловать в ваш персональный AI ассистент! Здесь вы можете:
+                <ul class="list-disc list-inside text-left mt-2 text-base text-gray-600 dark:text-gray-400">
+                  <li>Общаться с AI по вопросам ваших активов</li>
+                  <li>Получать советы по инвестициям и рыночным трендам</li>
+                  <li>Консультироваться по продаже, покупке и поиску выгодных предложений</li>
+                  <li>Использовать голосовой ввод для быстрого общения</li>
+                  <li>И многое другое — просто спросите!</li>
+                </ul>
+              </p>
+              <div class="w-full max-w-xl bg-white dark:bg-gray-900 rounded-xl shadow p-6 flex flex-col gap-4">
+                <div id="ai-chat-history" class="h-48 overflow-y-auto mb-2 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg text-gray-700 dark:text-gray-200 text-sm flex flex-col gap-2">
+                  <div class="text-center text-gray-400 dark:text-gray-500 mt-12">Здесь появится история вашего диалога с ассистентом</div>
+                </div>
+                <form id="ai-chat-form" class="flex gap-2">
+                  <input type="text" id="ai-chat-input" class="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Напишите ваш вопрос..." autocomplete="off" disabled>
+                  <button type="button" id="ai-voice-btn" class="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2 flex items-center gap-2" disabled>
+                    <i data-lucide="mic"></i>
+                  </button>
+                  <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2 flex items-center gap-2" disabled>
+                    <i data-lucide="send"></i>
+                    Отправить
+                  </button>
+                </form>
+                <div class="text-xs text-gray-400 dark:text-gray-500 text-center mt-2">Скоро здесь появится полноценный AI-чат и голосовой помощник!</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Link main script -->
+    <script src="./main.js"></script>
+  </body>
+</html>

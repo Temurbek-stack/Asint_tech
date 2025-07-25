@@ -1,0 +1,25 @@
+venv/bin/activate
+.\homeeval_project\venv\Scripts\Activate.ps1
+venv\Scripts\activate
+
+cd "G:\Meine Ablage\for interns\AVIN\homeeval_bundle"
+
+python manage.py runserver
+
+
+
+
+python manage.py makemigrations asset_manager
+del db.sqlite3
+rmdir /s /q asset_manager\migrations
+del /q asset_manager\migrations\*.py asset_manager\migrations\*.pycdel /q prediction\migrations\*.py prediction\migrations\*.pyc
+python manage.py migrate
+
+python manage.py runserver
+
+
+
+Run this for backend. maybe "makemigrations" is not necessary.
+
+
+Run the front on live server with vs code

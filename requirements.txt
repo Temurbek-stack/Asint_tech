@@ -1,0 +1,9 @@
+Django>=3.2
+djangorestframework
+pandas
+scikit-learn
+joblib
+lightgbm
+django-cors-headers
+fpdf2
+python-dateutil
